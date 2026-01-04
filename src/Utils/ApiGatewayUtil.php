@@ -2,10 +2,23 @@
 
 namespace Paganini\Utils;
 
+use InvalidArgumentException;
+
 class ApiGatewayUtil
 {
+    /**
+     * Token expiration time in seconds (2 days)
+     */
+    const EXPIRATION = 172800;
+
+    /**
+     * Redis key prefix for SSO service tokens
+     */
     const REDIS_PREFIX_SSO_SERV = 'sso:serv:';
 
+    /**
+     * Field names for tokens
+     */
     const ACCESS_TOKEN = 'token';
     const REFRESH_TOKEN = 'refresh_token';
 
@@ -15,14 +28,16 @@ class ApiGatewayUtil
      * @param mixed $redisConnection Redis connection/client that supports hSet, hGet, expire
      * @param string $userName
      * @param array $tokens
-     * @param int|null $expiration
      * @return array List of written Redis keys (may contain duplicates like original implementation)
      */
-    public static function saveTokens($redisConnection,
+    public static function saveTokens(mixed  $redisConnection,
                                       string $userName,
-                                      array $tokens,
-                                      ?int $expiration = null): array
+                                      array  $tokens): array
     {
+        if (!$redisConnection) {
+            throw new InvalidArgumentException('Redis connection is null');
+        }
+
         $writtenKeys = [];
 
         $redisKey = self::REDIS_PREFIX_SSO_SERV . $userName;
@@ -31,7 +46,7 @@ class ApiGatewayUtil
             if (is_array($_value) || is_object($_value)) {
                 $encoded = json_encode($_value, JSON_UNESCAPED_UNICODE);
                 if ($encoded === false) {
-                    $msg = "json_encode failed for field: {$_field}, error: " . json_last_error_msg();
+                    $msg = "json_encode failed for field: $_field, error: " . json_last_error_msg();
                     error_log($msg);
                     $_value = serialize($_value);
                 } else {
@@ -48,9 +63,7 @@ class ApiGatewayUtil
             $writtenKeys[] = $redisKey;
         }
 
-        if ($expiration) {
-            $redisConnection->expire($redisKey, $expiration);
-        }
+        $redisConnection->expire($redisKey, self::EXPIRATION);
 
         return $writtenKeys;
     }
@@ -63,13 +76,17 @@ class ApiGatewayUtil
      * @param string $userName
      * @return string|null
      */
-    public static function getAccessToken($redisConnection,
+    public static function getAccessToken(mixed  $redisConnection,
                                           string $userName): ?string
     {
+        if (!$redisConnection) {
+            throw new InvalidArgumentException('Redis connection is null');
+        }
+
         $redisKey = self::REDIS_PREFIX_SSO_SERV . $userName;
         $value = $redisConnection->hGet($redisKey, self::ACCESS_TOKEN);
         if ($value === false) {
-            $msg = "redis hGet failed for key: {$redisKey}, field: access_token";
+            $msg = "redis hGet failed for key: $redisKey, field: access_token";
             error_log($msg);
             return null;
         }
@@ -85,13 +102,17 @@ class ApiGatewayUtil
      * @param string $userName
      * @return string|null
      */
-    public static function getRefreshToken($redisConnection,
+    public static function getRefreshToken(mixed  $redisConnection,
                                            string $userName): ?string
     {
+        if (!$redisConnection) {
+            throw new InvalidArgumentException('Redis connection is null');
+        }
+
         $redisKey = self::REDIS_PREFIX_SSO_SERV . $userName;
         $value = $redisConnection->hGet($redisKey, self::REFRESH_TOKEN);
         if ($value === false) {
-            $msg = "redis hGet failed for key: {$redisKey}, field: refresh_token";
+            $msg = "redis hGet failed for key: $redisKey, field: refresh_token";
             error_log($msg);
             return null;
         }
