@@ -55,7 +55,7 @@ class ApiGatewayUtil
         return $writtenKeys;
     }
 
-    
+
     /**
      * Read access token from Redis hash. Returns null if hGet returns false (error/missing).
      *
