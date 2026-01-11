@@ -12,7 +12,7 @@ class ListUtil
      * @param $fieldName
      * @return mixed
      */
-    public static function getMaxValue($arrayList, $fieldName) : mixed {
+    public static function getMaxValue($arrayList, $fieldName) {
         if (!$arrayList) {
             return null;
         }
@@ -36,7 +36,7 @@ class ListUtil
      * @param $fieldName
      * @return mixed
      */
-    public static function getMinValue($arrayList, $fieldName) : mixed {
+    public static function getMinValue($arrayList, $fieldName) {
         if (!$arrayList) {
             return null;
         }

@@ -7,13 +7,33 @@ namespace Paganini\POJOs;
  *
  * Encapsulates detailed error information
  */
-readonly class ResponseEmbeddedError
+class ResponseEmbeddedError
 {
-    public function __construct(
-        public string $path,
-        public string $message,
-        public string $rejectValue,
-        public string $source
-    ) {
+    /**
+     * @var string
+     */
+    public $path;
+
+    /**
+     * @var string
+     */
+    public $message;
+
+    /**
+     * @var string
+     */
+    public $rejectValue;
+
+    /**
+     * @var string
+     */
+    public $source;
+
+    public function __construct(string $path, string $message, string $rejectValue, string $source)
+    {
+        $this->path = $path;
+        $this->message = $message;
+        $this->rejectValue = $rejectValue;
+        $this->source = $source;
     }
 }

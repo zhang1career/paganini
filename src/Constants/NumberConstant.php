@@ -4,9 +4,9 @@ namespace Paganini\Constants;
 
 class NumberConstant
 {
-    public const E_3 = '1000';
-    public const E_6 = '1000000';
-    public const SCALE_0 = 0;
-    public const SCALE_6 = 6;
+    const E_3 = '1000';
+    const E_6 = '1000000';
+    const SCALE_0 = 0;
+    const SCALE_6 = 6;
 }
 

@@ -7,18 +7,37 @@ use Paganini\Constants\ResponseConstant;
 class Response
 {
     /**
+     * @var int
+     */
+    private $errorCode;
+
+    /**
+     * @var mixed
+     */
+    private $data;
+
+    /**
+     * @var string
+     */
+    private $message;
+
+    /**
+     * @var array
+     */
+    private $_embedded;
+
+    /**
      * @param int $errorCode Response code, 0 for success, other for failure
      * @param mixed $data Response data (optional)
      * @param string $message Response message
-     * @param list<ResponseEmbeddedError> $_embedded Embedded data (optional), container for additional info
+     * @param array $_embedded Embedded data (optional), container for additional info
      */
-    public function __construct(
-        private int    $errorCode,
-        private mixed  $data = null,
-        private string $message = '',
-        private array  $_embedded = []
-    )
+    public function __construct(int $errorCode, $data = null, string $message = '', array $_embedded = [])
     {
+        $this->errorCode = $errorCode;
+        $this->data = $data;
+        $this->message = $message;
+        $this->_embedded = $_embedded;
     }
 
 
@@ -30,7 +49,10 @@ class Response
         return $this->errorCode;
     }
 
-    public function getData(): mixed
+    /**
+     * @return mixed
+     */
+    public function getData()
     {
         return $this->data;
     }
@@ -53,9 +75,9 @@ class Response
      * @param string $message Response message
      * @return self
      */
-    public static function success(mixed $data = null, string $message = ''): self
+    public static function success($data = null, string $message = ''): self
     {
-        return new self(errorCode: ResponseConstant::RET_OK, data: $data, message: $message);
+        return new self(ResponseConstant::RET_OK, $data, $message);
     }
 
     /**
@@ -66,7 +88,7 @@ class Response
      */
     public static function fail(string $message): self
     {
-        return new self(errorCode: ResponseConstant::RET_ERR, message: $message);
+        return new self(ResponseConstant::RET_ERR, null, $message);
     }
 
     /**
@@ -78,7 +100,7 @@ class Response
      */
     public static function failWithCode(int $errorCode, string $message): self
     {
-        return new self(errorCode: $errorCode, message: $message);
+        return new self($errorCode, null, $message);
     }
 
     /**
@@ -91,7 +113,7 @@ class Response
      */
     public static function failWithDetail(int $errorCode, string $message, array $_embedded): self
     {
-        return new self(errorCode: $errorCode, message: $message, _embedded: $_embedded);
+        return new self($errorCode, null, $message, $_embedded);
     }
 
     /**

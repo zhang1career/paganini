@@ -7,7 +7,7 @@ use Tests\TestCase;
 
 class ListUtilTest extends TestCase
 {
-    public function test_getMaxValue(): void
+    public function test_getMaxValue()
     {
         $arrayList = [
             ['id' => 1, 'value' => 10],
@@ -19,14 +19,14 @@ class ListUtilTest extends TestCase
         $this->assertEquals(30, $result);
     }
 
-    public function test_getMaxValue_with_empty_list(): void
+    public function test_getMaxValue_with_empty_list()
     {
         $result = ListUtil::getMaxValue([], 'value');
 
         $this->assertNull($result);
     }
 
-    public function test_getMaxValue_with_missing_field(): void
+    public function test_getMaxValue_with_missing_field()
     {
         $arrayList = [
             ['id' => 1, 'value' => 10],
@@ -38,7 +38,7 @@ class ListUtilTest extends TestCase
         $this->assertEquals(20, $result);
     }
 
-    public function test_getMaxValue_with_negative_numbers(): void
+    public function test_getMaxValue_with_negative_numbers()
     {
         $arrayList = [
             ['id' => 1, 'value' => -10],
@@ -50,7 +50,7 @@ class ListUtilTest extends TestCase
         $this->assertEquals(-5, $result);
     }
 
-    public function test_getMaxValue_with_single_item(): void
+    public function test_getMaxValue_with_single_item()
     {
         $arrayList = [
             ['id' => 1, 'value' => 10],
@@ -60,7 +60,7 @@ class ListUtilTest extends TestCase
         $this->assertEquals(10, $result);
     }
 
-    public function test_getMinValue(): void
+    public function test_getMinValue()
     {
         $arrayList = [
             ['id' => 1, 'value' => 10],
@@ -72,14 +72,14 @@ class ListUtilTest extends TestCase
         $this->assertEquals(10, $result);
     }
 
-    public function test_getMinValue_with_empty_list(): void
+    public function test_getMinValue_with_empty_list()
     {
         $result = ListUtil::getMinValue([], 'value');
 
         $this->assertNull($result);
     }
 
-    public function test_getMinValue_with_missing_field(): void
+    public function test_getMinValue_with_missing_field()
     {
         $arrayList = [
             ['id' => 1, 'value' => 10],
@@ -91,7 +91,7 @@ class ListUtilTest extends TestCase
         $this->assertEquals(10, $result);
     }
 
-    public function test_getMinValue_with_negative_numbers(): void
+    public function test_getMinValue_with_negative_numbers()
     {
         $arrayList = [
             ['id' => 1, 'value' => -10],
@@ -103,7 +103,7 @@ class ListUtilTest extends TestCase
         $this->assertEquals(-20, $result);
     }
 
-    public function test_getMinValue_with_single_item(): void
+    public function test_getMinValue_with_single_item()
     {
         $arrayList = [
             ['id' => 1, 'value' => 10],

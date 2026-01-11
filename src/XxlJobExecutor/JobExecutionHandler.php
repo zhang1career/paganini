@@ -15,10 +15,20 @@ use Paganini\XxlJobExecutor\Interfaces\FileLockInterface;
  */
 class JobExecutionHandler
 {
-    public function __construct(
-        private readonly CallbackClientInterface $callbackClient,
-        private readonly FileLockInterface $fileLock
-    ) {
+    /**
+     * @var CallbackClientInterface
+     */
+    private $callbackClient;
+
+    /**
+     * @var FileLockInterface
+     */
+    private $fileLock;
+
+    public function __construct(CallbackClientInterface $callbackClient, FileLockInterface $fileLock)
+    {
+        $this->callbackClient = $callbackClient;
+        $this->fileLock = $fileLock;
     }
 
     /**
@@ -32,7 +42,7 @@ class JobExecutionHandler
      */
     public function execute(
         array $callable,
-        mixed $params,
+        $params,
         int $logId,
         string $jobId
     ): void {

@@ -15,7 +15,7 @@ interface FileLockInterface
      * @param string $jobId Job ID
      * @return string|null Returns file path if created successfully, null otherwise
      */
-    public function create(string $jobId): ?string;
+    public function create(string $jobId);
 
     /**
      * Delete a job file lock

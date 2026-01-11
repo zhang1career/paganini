@@ -7,7 +7,7 @@ use Tests\TestCase;
 
 class UuidUtilTest extends TestCase
 {
-    public function test_uuid(): void
+    public function test_uuid()
     {
         $result = UuidUtil::uuid();
 
@@ -16,7 +16,7 @@ class UuidUtilTest extends TestCase
         $this->assertMatchesRegularExpression('/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i', $result);
     }
 
-    public function test_uuid_generates_unique_values(): void
+    public function test_uuid_generates_unique_values()
     {
         $uuid1 = UuidUtil::uuid();
         $uuid2 = UuidUtil::uuid();
@@ -24,7 +24,7 @@ class UuidUtilTest extends TestCase
         $this->assertNotEquals($uuid1, $uuid2);
     }
 
-    public function test_shortUuid(): void
+    public function test_shortUuid()
     {
         $result = UuidUtil::shortUuid();
 
@@ -33,7 +33,7 @@ class UuidUtilTest extends TestCase
         $this->assertMatchesRegularExpression('/^[0-9a-f]{32}$/i', $result);
     }
 
-    public function test_shortUuid_generates_unique_values(): void
+    public function test_shortUuid_generates_unique_values()
     {
         $uuid1 = UuidUtil::shortUuid();
         $uuid2 = UuidUtil::shortUuid();
@@ -41,7 +41,7 @@ class UuidUtilTest extends TestCase
         $this->assertNotEquals($uuid1, $uuid2);
     }
 
-    public function test_expand(): void
+    public function test_expand()
     {
         $shortUuid = '123456781234123412341234567890ab';
         $result = UuidUtil::expand($shortUuid);
@@ -49,7 +49,7 @@ class UuidUtilTest extends TestCase
         $this->assertEquals('12345678-1234-1234-1234-1234567890ab', $result);
     }
 
-    public function test_expand_with_already_expanded_uuid(): void
+    public function test_expand_with_already_expanded_uuid()
     {
         $expandedUuid = '12345678-1234-1234-1234-1234567890ab';
         $shortUuid = str_replace('-', '', $expandedUuid);
@@ -58,7 +58,7 @@ class UuidUtilTest extends TestCase
         $this->assertEquals($expandedUuid, $result);
     }
 
-    public function test_short(): void
+    public function test_short()
     {
         $uuid = '12345678-1234-1234-1234-1234567890ab';
         $result = UuidUtil::short($uuid);
@@ -66,7 +66,7 @@ class UuidUtilTest extends TestCase
         $this->assertEquals('123456781234123412341234567890ab', $result);
     }
 
-    public function test_short_with_already_short_uuid(): void
+    public function test_short_with_already_short_uuid()
     {
         $shortUuid = '123456781234123412341234567890ab';
         $result = UuidUtil::short($shortUuid);
@@ -74,7 +74,7 @@ class UuidUtilTest extends TestCase
         $this->assertEquals($shortUuid, $result);
     }
 
-    public function test_short_expand_roundtrip(): void
+    public function test_short_expand_roundtrip()
     {
         $original = '12345678-1234-1234-1234-1234567890ab';
         $short = UuidUtil::short($original);
@@ -83,7 +83,7 @@ class UuidUtilTest extends TestCase
         $this->assertEquals($original, $expanded);
     }
 
-    public function test_shortUuid_expand_roundtrip(): void
+    public function test_shortUuid_expand_roundtrip()
     {
         $short = UuidUtil::shortUuid();
         $expanded = UuidUtil::expand($short);

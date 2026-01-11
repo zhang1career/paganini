@@ -30,7 +30,7 @@ class ApiGatewayUtil
      * @param array $tokens
      * @return array List of written Redis keys (may contain duplicates like original implementation)
      */
-    public static function saveTokens(mixed  $redisConnection,
+    public static function saveTokens($redisConnection,
                                       string $userName,
                                       array  $tokens): array
     {
@@ -76,8 +76,8 @@ class ApiGatewayUtil
      * @param string $userName
      * @return string|null
      */
-    public static function getAccessToken(mixed  $redisConnection,
-                                          string $userName): ?string
+    public static function getAccessToken($redisConnection,
+                                          string $userName)
     {
         if (!$redisConnection) {
             throw new InvalidArgumentException('Redis connection is null');
@@ -102,8 +102,8 @@ class ApiGatewayUtil
      * @param string $userName
      * @return string|null
      */
-    public static function getRefreshToken(mixed  $redisConnection,
-                                           string $userName): ?string
+    public static function getRefreshToken($redisConnection,
+                                           string $userName)
     {
         if (!$redisConnection) {
             throw new InvalidArgumentException('Redis connection is null');

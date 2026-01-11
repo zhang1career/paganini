@@ -12,9 +12,14 @@ use Paganini\XxlJobExecutor\Interfaces\FileLockInterface;
  */
 class JobFileLock
 {
-    public function __construct(
-        private readonly FileLockInterface $fileLock
-    ) {
+    /**
+     * @var FileLockInterface
+     */
+    private $fileLock;
+
+    public function __construct(FileLockInterface $fileLock)
+    {
+        $this->fileLock = $fileLock;
     }
 
     /**
@@ -23,7 +28,7 @@ class JobFileLock
      * @param string $jobId Job ID
      * @return string|null Returns file path if created successfully, null otherwise
      */
-    public function create(string $jobId): ?string
+    public function create(string $jobId)
     {
         return $this->fileLock->create($jobId);
     }

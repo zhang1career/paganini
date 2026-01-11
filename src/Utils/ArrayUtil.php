@@ -289,7 +289,7 @@ class ArrayUtil
      * @return array|mixed
      * @throws IllegalArgumentException
      */
-    public static function deepGet(array $data, string $pathStr): mixed
+    public static function deepGet(array $data, string $pathStr)
     {
         $paths = explode('.', $pathStr);
         $ret = $data;

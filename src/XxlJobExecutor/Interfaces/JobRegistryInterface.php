@@ -24,7 +24,7 @@ interface JobRegistryInterface
      * @param string $handler Job identifier
      * @return array{0: class-string, 1: string}|null Returns [ClassName::class, 'methodName'], or null if not found
      */
-    public function getJob(string $handler): ?array;
+    public function getJob(string $handler);
 
     /**
      * Check if Job is registered

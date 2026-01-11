@@ -8,7 +8,7 @@ use Tests\TestCase;
 
 class ArrayUtilTest extends TestCase
 {
-    public function test_extersect(): void
+    public function test_extersect()
     {
         $array1 = [1, 2, 3];
         $array2 = [2, 3, 4];
@@ -18,13 +18,13 @@ class ArrayUtilTest extends TestCase
         $this->assertEquals([4], array_values($result[1]));
     }
 
-    public function test_extersect_with_empty_arrays(): void
+    public function test_extersect_with_empty_arrays()
     {
         $result = ArrayUtil::extersect([], []);
         $this->assertEquals([[], []], $result);
     }
 
-    public function test_extersect_with_no_intersection(): void
+    public function test_extersect_with_no_intersection()
     {
         $array1 = [1, 2, 3];
         $array2 = [4, 5, 6];
@@ -34,7 +34,7 @@ class ArrayUtilTest extends TestCase
         $this->assertEquals([4, 5, 6], array_values($result[1]));
     }
 
-    public function test_combineAndSort(): void
+    public function test_combineAndSort()
     {
         $array1 = [
             'a' => [1, 2, 3],
@@ -54,13 +54,13 @@ class ArrayUtilTest extends TestCase
         $this->assertEquals([6], $result['d']);
     }
 
-    public function test_combineAndSort_with_empty_arrays(): void
+    public function test_combineAndSort_with_empty_arrays()
     {
         $result = ArrayUtil::combineAndSort([], []);
         $this->assertEquals([], $result);
     }
 
-    public function test_uniqAndSort(): void
+    public function test_uniqAndSort()
     {
         $array = [3, 1, 2, 2, 3, 1];
         $result = ArrayUtil::uniqAndSort($array);
@@ -68,13 +68,13 @@ class ArrayUtilTest extends TestCase
         $this->assertEquals([1, 2, 3], $result);
     }
 
-    public function test_uniqAndSort_with_empty_array(): void
+    public function test_uniqAndSort_with_empty_array()
     {
         $result = ArrayUtil::uniqAndSort([]);
         $this->assertEquals([], $result);
     }
 
-    public function test_partition(): void
+    public function test_partition()
     {
         $array = [1, 2, 3, 4, 5, 6, 7];
         $result = ArrayUtil::partition($array, 3);
@@ -82,7 +82,7 @@ class ArrayUtilTest extends TestCase
         $this->assertEquals([[1, 2, 3], [4, 5, 6], [7]], $result);
     }
 
-    public function test_partition_with_exact_divisor(): void
+    public function test_partition_with_exact_divisor()
     {
         $array = [1, 2, 3, 4, 5, 6];
         $result = ArrayUtil::partition($array, 3);
@@ -90,7 +90,7 @@ class ArrayUtilTest extends TestCase
         $this->assertEquals([[1, 2, 3], [4, 5, 6]], $result);
     }
 
-    public function test_cartesianCombine(): void
+    public function test_cartesianCombine()
     {
         $array1 = ['a', 'b'];
         $array2 = [1, 2];
@@ -101,13 +101,13 @@ class ArrayUtilTest extends TestCase
         $this->assertEquals([['a', 1], ['a', 2], ['b', 1], ['b', 2]], $result);
     }
 
-    public function test_cartesianCombine_with_empty_array(): void
+    public function test_cartesianCombine_with_empty_array()
     {
         $result = ArrayUtil::cartesianCombine([], [1, 2], fn($a, $b) => [$a, $b]);
         $this->assertEquals([], $result);
     }
 
-    public function test_columnOf_with_array(): void
+    public function test_columnOf_with_array()
     {
         $array = [
             ['id' => 1, 'name' => 'John'],
@@ -118,7 +118,7 @@ class ArrayUtilTest extends TestCase
         $this->assertEquals([1, 2], $result);
     }
 
-    public function test_columnOf_with_object(): void
+    public function test_columnOf_with_object()
     {
         $obj1 = (object)['id' => 1, 'name' => 'John'];
         $obj2 = (object)['id' => 2, 'name' => 'Jane'];
@@ -128,25 +128,25 @@ class ArrayUtilTest extends TestCase
         $this->assertEquals([1, 2], $result);
     }
 
-    public function test_columnOf_throws_exception_for_blank_field(): void
+    public function test_columnOf_throws_exception_for_blank_field()
     {
         $this->expectException(IllegalArgumentException::class);
         ArrayUtil::columnOf([['id' => 1]], '');
     }
 
-    public function test_columnOf_throws_exception_for_unsupported_type(): void
+    public function test_columnOf_throws_exception_for_unsupported_type()
     {
         $this->expectException(IllegalArgumentException::class);
         ArrayUtil::columnOf([123], 'id');
     }
 
-    public function test_columnOf_with_empty_array(): void
+    public function test_columnOf_with_empty_array()
     {
         $result = ArrayUtil::columnOf([], 'id');
         $this->assertEquals([], $result);
     }
 
-    public function test_indexBy_with_array(): void
+    public function test_indexBy_with_array()
     {
         $array = [
             ['id' => 1, 'name' => 'John'],
@@ -160,7 +160,7 @@ class ArrayUtilTest extends TestCase
         $this->assertEquals('Jane', $result[2]['name']);
     }
 
-    public function test_indexBy_with_object(): void
+    public function test_indexBy_with_object()
     {
         $obj1 = (object)['id' => 1, 'name' => 'John'];
         $obj2 = (object)['id' => 2, 'name' => 'Jane'];
@@ -171,19 +171,19 @@ class ArrayUtilTest extends TestCase
         $this->assertEquals(2, $result[2]->id);
     }
 
-    public function test_indexBy_throws_exception_for_blank_field(): void
+    public function test_indexBy_throws_exception_for_blank_field()
     {
         $this->expectException(IllegalArgumentException::class);
         ArrayUtil::indexBy([['id' => 1]], '');
     }
 
-    public function test_indexBy_with_empty_array(): void
+    public function test_indexBy_with_empty_array()
     {
         $result = ArrayUtil::indexBy([], 'id');
         $this->assertEquals([], $result);
     }
 
-    public function test_groupBy(): void
+    public function test_groupBy()
     {
         $array = [
             ['category' => 'A', 'value' => 1],
@@ -196,7 +196,7 @@ class ArrayUtilTest extends TestCase
         $this->assertCount(1, $result['B']);
     }
 
-    public function test_groupBy_with_int_key(): void
+    public function test_groupBy_with_int_key()
     {
         $array = [
             ['type' => 1, 'value' => 'a'],
@@ -209,7 +209,7 @@ class ArrayUtilTest extends TestCase
         $this->assertCount(1, $result[2]);
     }
 
-    public function test_groupBy_skips_items_without_field(): void
+    public function test_groupBy_skips_items_without_field()
     {
         $array = [
             ['category' => 'A', 'value' => 1],
@@ -222,13 +222,13 @@ class ArrayUtilTest extends TestCase
         $this->assertArrayNotHasKey('', $result);
     }
 
-    public function test_groupBy_with_empty_array(): void
+    public function test_groupBy_with_empty_array()
     {
         $result = ArrayUtil::groupBy([], 'category');
         $this->assertEquals([], $result);
     }
 
-    public function test_groupBy_with_enum(): void
+    public function test_groupBy_with_enum()
     {
         // Skip test for PHP < 8.1 as enums are not supported
         if (PHP_VERSION_ID < 80100) {
@@ -240,7 +240,7 @@ class ArrayUtilTest extends TestCase
         $this->markTestSkipped('Enum test requires enum definition outside test class');
     }
 
-    public function test_includeByKey(): void
+    public function test_includeByKey()
     {
         $array = ['a' => 'A1', 'b' => 'B2', 'c' => 'C3'];
         $keys = ['a', 'c'];
@@ -249,13 +249,13 @@ class ArrayUtilTest extends TestCase
         $this->assertEquals(['a' => 'A1', 'c' => 'C3'], $result);
     }
 
-    public function test_includeByKey_with_empty_arrays(): void
+    public function test_includeByKey_with_empty_arrays()
     {
         $result = ArrayUtil::includeByKey([], []);
         $this->assertEquals([], $result);
     }
 
-    public function test_excludeByKey(): void
+    public function test_excludeByKey()
     {
         $array = ['a' => 'A1', 'b' => 'B2', 'c' => 'C3'];
         $keys = ['a', 'c'];
@@ -264,7 +264,7 @@ class ArrayUtilTest extends TestCase
         $this->assertEquals(['b' => 'B2'], $result);
     }
 
-    public function test_excludeByKey_with_empty_keys(): void
+    public function test_excludeByKey_with_empty_keys()
     {
         $array = ['a' => 'A1', 'b' => 'B2'];
         $result = ArrayUtil::excludeByKey($array, []);
@@ -272,13 +272,13 @@ class ArrayUtilTest extends TestCase
         $this->assertEquals($array, $result);
     }
 
-    public function test_excludeByKey_with_empty_array(): void
+    public function test_excludeByKey_with_empty_array()
     {
         $result = ArrayUtil::excludeByKey([], ['a']);
         $this->assertEquals([], $result);
     }
 
-    public function test_deepGet(): void
+    public function test_deepGet()
     {
         $data = ['a' => ['b' => ['c' => 'value']]];
         $result = ArrayUtil::deepGet($data, 'a.b.c');
@@ -286,21 +286,21 @@ class ArrayUtilTest extends TestCase
         $this->assertEquals('value', $result);
     }
 
-    public function test_deepGet_throws_exception_for_null_path(): void
+    public function test_deepGet_throws_exception_for_null_path()
     {
         $this->expectException(IllegalArgumentException::class);
         $data = ['a' => null];
         ArrayUtil::deepGet($data, 'a.b');
     }
 
-    public function test_deepGet_throws_exception_for_missing_path(): void
+    public function test_deepGet_throws_exception_for_missing_path()
     {
         $this->expectException(IllegalArgumentException::class);
         $data = ['a' => ['b' => 'value']];
         ArrayUtil::deepGet($data, 'a.b.c');
     }
 
-    public function test_conflictSafeInsert_new_key(): void
+    public function test_conflictSafeInsert_new_key()
     {
         $array = [];
         ArrayUtil::conflictSafeInsert($array, 'key1', 'value1');
@@ -308,7 +308,7 @@ class ArrayUtilTest extends TestCase
         $this->assertEquals('value1', $array['key1']);
     }
 
-    public function test_conflictSafeInsert_existing_key(): void
+    public function test_conflictSafeInsert_existing_key()
     {
         $array = ['key1' => 'value1'];
         ArrayUtil::conflictSafeInsert($array, 'key1', 'value2');
@@ -316,7 +316,7 @@ class ArrayUtilTest extends TestCase
         $this->assertEquals(['value1', 'value2'], $array['key1']);
     }
 
-    public function test_conflictSafeInsert_multiple_values(): void
+    public function test_conflictSafeInsert_multiple_values()
     {
         $array = [];
         ArrayUtil::conflictSafeInsert($array, 'key1', 'value1');

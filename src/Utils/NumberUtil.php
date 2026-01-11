@@ -13,7 +13,7 @@ class NumberUtil
      * @param mixed $value
      * @return int
      */
-    public static function fixed3FromFloat(mixed $value) : int {
+    public static function fixed3FromFloat($value) : int {
         return intval(bcmul($value, NumberConstant::E_3, NumberConstant::SCALE_0));
     }
 
@@ -24,7 +24,7 @@ class NumberUtil
      * @param mixed $value
      * @return int
      */
-    public static function fixed6FromFloat(mixed $value) : int {
+    public static function fixed6FromFloat($value) : int {
         return intval(bcmul($value, NumberConstant::E_6, NumberConstant::SCALE_0));
     }
 
@@ -34,7 +34,7 @@ class NumberUtil
      * @param mixed $value
      * @return string
      */
-    public static function float6FromFixed6(mixed $value) : string {
+    public static function float6FromFixed6($value) : string {
         return bcdiv($value, NumberConstant::E_6, NumberConstant::SCALE_6);
     }
 }

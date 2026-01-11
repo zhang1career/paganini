@@ -30,9 +30,9 @@ class UuidUtil
     /**
      * Generate a short UUID
      *
-     * @return array|string
+     * @return string
      */
-    public static function shortUuid() : array|string {
+    public static function shortUuid() : string {
         return self::short(self::uuid());
     }
 

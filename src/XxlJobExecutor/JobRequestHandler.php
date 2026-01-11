@@ -16,12 +16,22 @@ use Paganini\POJOs\Response;
  *
  * Actual job execution happens asynchronously via queue
  */
-readonly class JobRequestHandler
+class JobRequestHandler
 {
-    public function __construct(
-        private JobRegistryInterface $jobRegistry,
-        private JobFileLock          $fileLock
-    ) {
+    /**
+     * @var JobRegistryInterface
+     */
+    private $jobRegistry;
+
+    /**
+     * @var JobFileLock
+     */
+    private $fileLock;
+
+    public function __construct(JobRegistryInterface $jobRegistry, JobFileLock $fileLock)
+    {
+        $this->jobRegistry = $jobRegistry;
+        $this->fileLock = $fileLock;
     }
 
     /**
@@ -40,25 +50,25 @@ readonly class JobRequestHandler
     public function handle(JobRequest $request): Response
     {
         // Create job file lock
-        $jobFilePath = $this->fileLock->create((string)$request->jobId);
+        $jobFilePath = $this->fileLock->create((string)$request->getJobId());
         if ($jobFilePath === null) {
-            return Response::fail('creating job file failed! filepath=' . $this->buildJobFilePath((string)$request->jobId));
+            return Response::fail('creating job file failed! filepath=' . $this->buildJobFilePath((string)$request->getJobId()));
         }
 
         // Get job from registry
-        $job = $this->jobRegistry->getJob($request->executorHandler);
+        $job = $this->jobRegistry->getJob($request->getExecutorHandler());
         if (!$job) {
             // Clean up file lock on error
-            $this->fileLock->delete((string)$request->jobId);
-            return Response::fail('executor handler not registered! handler=' . $request->executorHandler);
+            $this->fileLock->delete((string)$request->getJobId());
+            return Response::fail('executor handler not registered! handler=' . $request->getExecutorHandler());
         }
 
         // Return success with job information
         // The actual execution will be handled by the queue system
         return Response::success([
             'job' => $job,
-            'params' => $request->executorParams,
-            'logId' => $request->logId,
+            'params' => $request->getExecutorParams(),
+            'logId' => $request->getLogId(),
             'filePath' => $jobFilePath,
         ]);
     }

@@ -7,20 +7,40 @@ namespace Paganini\XxlJobExecutor;
  *
  * Encapsulates job execution request parameters
  */
-readonly class JobRequest
+class JobRequest
 {
+    /**
+     * @var int
+     */
+    private $jobId;
+
+    /**
+     * @var string
+     */
+    private $executorHandler;
+
+    /**
+     * @var mixed
+     */
+    private $executorParams;
+
+    /**
+     * @var int
+     */
+    private $logId;
+
     /**
      * @param int $jobId Job ID
      * @param string $executorHandler Job identifier
      * @param mixed $executorParams Job parameters
      * @param int $logId Current scheduling log ID
      */
-    public function __construct(
-        public int $jobId,
-        public string $executorHandler,
-        public mixed $executorParams,
-        public int $logId
-    ) {
+    public function __construct(int $jobId, string $executorHandler, $executorParams, int $logId)
+    {
+        $this->jobId = $jobId;
+        $this->executorHandler = $executorHandler;
+        $this->executorParams = $executorParams;
+        $this->logId = $logId;
     }
 
     /**
@@ -32,11 +52,43 @@ readonly class JobRequest
     public static function fromArray(array $data): self
     {
         return new self(
-            jobId: (int)$data['jobId'],
-            executorHandler: (string)$data['executorHandler'],
-            executorParams: $data['executorParams'] ?? null,
-            logId: (int)$data['logId']
+            (int)$data['jobId'],
+            (string)$data['executorHandler'],
+            $data['executorParams'] ?? null,
+            (int)$data['logId']
         );
+    }
+
+    /**
+     * @return int
+     */
+    public function getJobId(): int
+    {
+        return $this->jobId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getExecutorHandler(): string
+    {
+        return $this->executorHandler;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getExecutorParams()
+    {
+        return $this->executorParams;
+    }
+
+    /**
+     * @return int
+     */
+    public function getLogId(): int
+    {
+        return $this->logId;
     }
 }
 

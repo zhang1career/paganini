@@ -7,11 +7,16 @@ namespace Paganini\XxlJobExecutor;
  *
  * Framework-agnostic token authentication for XXL-JOB requests
  */
-readonly class TokenAuthenticator
+class TokenAuthenticator
 {
-    public function __construct(
-        private string $expectedToken
-    ) {
+    /**
+     * @var string
+     */
+    private $expectedToken;
+
+    public function __construct(string $expectedToken)
+    {
+        $this->expectedToken = $expectedToken;
     }
 
     /**
@@ -20,7 +25,7 @@ readonly class TokenAuthenticator
      * @param string|null $providedToken Token from request header
      * @return bool True if token is valid, false otherwise
      */
-    public function validate(?string $providedToken): bool
+    public function validate($providedToken): bool
     {
         if ($providedToken === null) {
             return false;

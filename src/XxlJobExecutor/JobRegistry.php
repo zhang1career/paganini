@@ -14,7 +14,7 @@ class JobRegistry implements JobRegistryInterface
     /**
      * @var array<string, array{0: class-string, 1: string}> Registered jobs, format: ['handler' => [ClassName::class, 'methodName']]
      */
-    private array $jobs = [];
+    private $jobs = [];
 
     /**
      * Register a job handler
@@ -34,7 +34,7 @@ class JobRegistry implements JobRegistryInterface
      * @param string $handler Job identifier
      * @return array{0: class-string, 1: string}|null Returns [ClassName::class, 'methodName'], or null if not found
      */
-    public function getJob(string $handler): ?array
+    public function getJob(string $handler)
     {
         return $this->jobs[$handler] ?? null;
     }

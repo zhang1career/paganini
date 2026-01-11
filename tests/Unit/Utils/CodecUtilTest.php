@@ -7,7 +7,7 @@ use Tests\TestCase;
 
 class CodecUtilTest extends TestCase
 {
-    public function test_comma_encode(): void
+    public function test_comma_encode()
     {
         $array = ['a', 'b', 'c'];
         $result = CodecUtil::comma_encode($array);
@@ -15,19 +15,19 @@ class CodecUtilTest extends TestCase
         $this->assertEquals('a,b,c', $result);
     }
 
-    public function test_comma_encode_with_empty_array(): void
+    public function test_comma_encode_with_empty_array()
     {
         $result = CodecUtil::comma_encode([]);
         $this->assertEquals('', $result);
     }
 
-    public function test_comma_encode_with_single_element(): void
+    public function test_comma_encode_with_single_element()
     {
         $result = CodecUtil::comma_encode(['single']);
         $this->assertEquals('single', $result);
     }
 
-    public function test_comma_encode_with_numbers(): void
+    public function test_comma_encode_with_numbers()
     {
         $array = [1, 2, 3];
         $result = CodecUtil::comma_encode($array);
@@ -35,7 +35,7 @@ class CodecUtilTest extends TestCase
         $this->assertEquals('1,2,3', $result);
     }
 
-    public function test_comma_decode(): void
+    public function test_comma_decode()
     {
         $str = 'a,b,c';
         $result = CodecUtil::comma_decode($str);
@@ -43,25 +43,25 @@ class CodecUtilTest extends TestCase
         $this->assertEquals(['a', 'b', 'c'], $result);
     }
 
-    public function test_comma_decode_with_empty_string(): void
+    public function test_comma_decode_with_empty_string()
     {
         $result = CodecUtil::comma_decode('');
         $this->assertEquals([''], $result);
     }
 
-    public function test_comma_decode_with_single_element(): void
+    public function test_comma_decode_with_single_element()
     {
         $result = CodecUtil::comma_decode('single');
         $this->assertEquals(['single'], $result);
     }
 
-    public function test_comma_decode_with_numbers(): void
+    public function test_comma_decode_with_numbers()
     {
         $result = CodecUtil::comma_decode('1,2,3');
         $this->assertEquals(['1', '2', '3'], $result);
     }
 
-    public function test_comma_encode_decode_roundtrip(): void
+    public function test_comma_encode_decode_roundtrip()
     {
         $original = ['a', 'b', 'c', 'd'];
         $encoded = CodecUtil::comma_encode($original);
