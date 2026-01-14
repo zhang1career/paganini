@@ -45,6 +45,18 @@ class Response
         return $this->_embedded;
     }
 
+    /**
+     * Output the response as an associative array
+     */
+    public function toArray(): array
+    {
+        return [
+            'errorCode' => $this->errorCode,
+            'data' => $this->data,
+            'message' => $this->message,
+            '_embedded' => $this->_embedded,
+        ];
+    }
 
     /**
      * Create success response
