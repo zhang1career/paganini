@@ -50,11 +50,25 @@ class Response
      */
     public function toArray(): array
     {
+        $_embedded = [];
+        foreach ($this->_embedded as $_e) {
+            if ($_e instanceof ResponseEmbeddedError) {
+                $_embedded []= $_e->toArray();
+                continue;
+            }
+
+            // Keep backward compatibility for historical array payloads.
+            if (is_array($_e)) {
+                $_embedded []= $_e;
+                continue;
+            }
+        }
+
         return [
             'errorCode' => $this->errorCode,
             'data' => $this->data,
             'message' => $this->message,
-            '_embedded' => $this->_embedded,
+            '_embedded' => $_embedded
         ];
     }
 
