@@ -17,14 +17,20 @@ final class LayeredEnvLoader
 
     public const DEFAULT_BASE_FILE = '.env';
 
+    /** @var array<string, true> */
+    private const ALLOWED_APP_ENV = [
+        'dev' => true,
+        'test' => true,
+        'prod' => true,
+    ];
+
     /**
      * Load {$baseFile}.{$appEnv} when the file exists (e.g. .env.prod).
      * Call after the base env file has been loaded; values override existing keys.
      *
-     * @param string $environmentPath Absolute directory containing env files
-     * @param string $baseFile Base filename, typically ".env"
-     * @param string $appEnvKey Variable holding the env segment (e.g. APP_ENV -> prod)
-     * @throws IllegalArgumentException
+     * @param  string  $environmentPath  Absolute directory containing env files
+     * @param  string  $baseFile  Base filename, typically ".env"
+     * @param  string  $appEnvKey  Variable holding the env segment (e.g. APP_ENV -> prod)
      */
     public static function loadEnvironmentOverlay(
         string $environmentPath,
@@ -46,9 +52,9 @@ final class LayeredEnvLoader
             return;
         }
 
-        if (! self::isSafeEnvSegment($appEnv)) {
+        if (! isset(self::ALLOWED_APP_ENV[$appEnv])) {
             throw new IllegalArgumentException(
-                'Invalid value for '.$appEnvKey.': only letters, digits, underscore, and hyphen are allowed for overlay filenames.'
+                'Invalid value for '.$appEnvKey.': must be one of dev, test, prod.'
             );
         }
 
@@ -75,10 +81,5 @@ final class LayeredEnvLoader
         }
 
         return null;
-    }
-
-    private static function isSafeEnvSegment(string $segment): bool
-    {
-        return (bool) preg_match('/\A[a-zA-Z0-9_-]+\z/', $segment);
     }
 }
