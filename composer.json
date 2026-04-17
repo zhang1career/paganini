@@ -13,13 +13,13 @@
     ],
     "require": {
         "php": "^8.2",
-        "vlucas/phpdotenv": "^5.6",
-        "ext-apcu": "ApcuMemoStore: cross-request memo in the same FPM worker"
+        "vlucas/phpdotenv": "^5.6"
     },
     "require-dev": {
         "phpunit/phpunit": "^11.0"
     },
     "suggest": {
+        "ext-apcu": "ApcuMemoStore: cross-request memo in the same FPM worker",
         "ext-redis": "phpredis client for RedisStringClient adapters",
         "ext-hash": "Required for xxh3 (CacheKeyGenerator); bundled with PHP in typical builds"
     },
