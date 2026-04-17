@@ -2,7 +2,7 @@
     "name": "zhang1career/paganini",
     "description": "A collection of utility classes for PHP",
     "type": "library",
-    "version": "0.3.2",
+    "version": "0.4.0",
     "license": "MIT",
     "keywords": ["utils", "utilities", "helper"],
     "authors": [
@@ -13,10 +13,15 @@
     ],
     "require": {
         "php": "^8.2",
-        "vlucas/phpdotenv": "^5.6"
+        "vlucas/phpdotenv": "^5.6",
+        "ext-apcu": "ApcuMemoStore: cross-request memo in the same FPM worker"
     },
     "require-dev": {
         "phpunit/phpunit": "^11.0"
+    },
+    "suggest": {
+        "ext-redis": "phpredis client for RedisStringClient adapters",
+        "ext-hash": "Required for xxh3 (CacheKeyGenerator); bundled with PHP in typical builds"
     },
     "autoload": {
         "psr-4": {
