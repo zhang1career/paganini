@@ -2,7 +2,7 @@
     "name": "zhang1career/paganini",
     "description": "A collection of utility classes for PHP",
     "type": "library",
-    "version": "0.4.1",
+    "version": "0.4.2",
     "license": "MIT",
     "keywords": ["utils", "utilities", "helper"],
     "authors": [
